@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch> 
+  
+    <param name="robot_description" textfile="$(find robot_tf_odm_pkg)/urdf/robot_sensors.xacro" />
+    <arg name="rviz_config_file" default="$(find robot_tf_odm_pkg)/rviz/odom_baselink.rviz"/>
+    <node name="odom_tf_fake" pkg="robot_tf_odm_pkg" type="odom_tf_fake" output="screen"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> 
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
+
+</launch>  
