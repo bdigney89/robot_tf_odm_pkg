@@ -2,25 +2,31 @@
 <launch> 
     <arg name="tele_speed" default="0.2"/>
     <arg name="tele_turn" default="0.4"/>
+    <include file="$(find depthai_ros_driver)/launch/pointcloud.launch"/>
+    <include file="$(find roboclaw_node)/launch/roboclaw.launch"/>    
     
+    <include file="$(find ros_imu_bno055)/launch/imu.launch" />
+    
+
   
     <param name="robot_description" 
         command="xacro --inorder '$(find robot_tf_odm_pkg)/urdf/blue1_bd.urdf.xacro'" />
-        
+
     <arg name="rviz_config_file" default="$(find robot_tf_odm_pkg)/rviz/odom_baselink.rviz"/>
-    <!-- <node name="odom_tf_fake" pkg="robot_tf_odm_pkg" type="odom_tf_fake" output="screen"/> -->
+    
+     
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> 
     
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>  
     <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" /> 
 
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
-    <!-- <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" args= _speed:="$(arg tele_speed)" _turn=:"$(arg tele_turn)" output="screen"/> -->
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen">
         <param name="speed" type ="double" value="$(arg tele_speed)"/>   
         <param name="turn" type ="double" value="$(arg tele_turn)"/>   
 
     </node>
+
 
 </launch>  

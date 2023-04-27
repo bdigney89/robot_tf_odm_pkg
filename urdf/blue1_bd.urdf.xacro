@@ -1,14 +1,14 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" ?> 
 <!-- <robot name="basic_mobile_bot" xmlns:xacro="http://ros.org/wiki/xacro"> -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="basic_mobile_bot"  >
 
   <!-- ****************** ROBOT CONSTANTS *******************************  -->
 
   <!-- defing oak camera position relative to base_link -->
-    <xacro:property name="oak_z" value ="0.8"/>
+    <xacro:property name="oak_z" value ="0.5"/>
     <xacro:property name="oak_x" value ="0.15"/>
     <xacro:property name="oak_r" value ="0.0"/>
-    <xacro:property name="oak_p" value ="0.26"/>
+    <xacro:property name="oak_p" value ="0.54"/>
 
 
 
@@ -236,5 +236,29 @@
         </material>
     </visual>
     </link>
+
+    <!-- oak optical -->
+  <joint name="oak_opt_joint" type="fixed">
+    <parent link="oak_link"/>
+    <!-- <child link="oak_opt_link"/> -->
+    <child link="oak-d-base-frame"/>
+    <origin xyz=".1 0 0 " rpy="${0*pi/2} ${-pi/10} ${0*pi/2}"/>
+  </joint>
+
+  <!-- <link name="oak_opt_link"> -->
+  <link name="oak-d-base-frame">
+    <visual name="">
+        <origin xyz="0. 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.1" length="0.1"/>
+            <!-- <box size=".1 .4 .1"/> -->
+        </geometry>
+        <material name="notsure">
+            <color rgba="1.0 0.5 0.5 1.0"/>
+            <texture filename=""/>
+        </material>
+    </visual>
+    </link>
+
 
 </robot>
